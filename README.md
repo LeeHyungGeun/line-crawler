@@ -1,5 +1,5 @@
 # Introduce
-This is a crawling library to search keyword in a specific domain. 
+This App is a crawling library to search keyword in a specific domain. 
 For example, if you want to search how many LINE Corp career pages contains `Front End` keyword in `https://career.linecorp.com/linecorp/career/list/`, you can use it like below.
 ``` javascript
 // ./app.js
