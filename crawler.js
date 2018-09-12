@@ -3,14 +3,16 @@ import cheerio from 'cheerio';
 import { URL } from 'url';
 import colors from 'colors';
 
-// 1. validation: http, https, same origin
-// 2. check visited
-// 3. request
-// 4. get body 
-// 5. add href
-// 6. verify all visited
+// 1. start crawler
+// 2. check has visited
+// 3. note started crawling an url
+// 4. request
+// 5. get a tags in a crawled body
+// 6. recursive call new hrefs
+// 7. note finished crawling an url
+// 8. verify all visited
 
-function crawler(seed, keyword) {
+function crawler (seed, keyword) {
     return new Promise((resolve) => {
         const crawled = new Map();
         const report = new Map();
@@ -27,7 +29,7 @@ function crawler(seed, keyword) {
             return request(url, (error, response, body = '') => {
                 if (keyword && convertRegexp(keyword).test(body)) {
                     report.set(url, true);
-                    console.log(url.yellow);
+                    console.log(url.yellow); // log an URL of contain keyword 
                 }
 
                 // 5. get a tags in a crawled body
@@ -36,18 +38,18 @@ function crawler(seed, keyword) {
                 const $a = $body.find('a');
                 
                 // 6. recursive call new hrefs
-                $a && $a.length && $a.map(async (index, element) => {
+                $a && $a.length && $a.map((index, element) => {
                     const url = validationUrl($(element).attr('href'), seed);
                     return url && _crawler(url);
                 });
 
                 // 7. note finished crawling an url
                 crawled.set(url, true);
-                console.log(url.green);
+                console.log(url.green); // log visited an URL
 
                 // 8. verify all visited
                 if (isVisitedAll(crawled)) {
-                    console.log('Finished'.blue);
+                    console.log('Finished'.blue); // log finished crawled
                     resolve({
                         crawled,
                         report
