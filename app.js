@@ -1,8 +1,14 @@
 import crawler from './crawler';
-import colors from 'colors';
 const seed = 'https://career.linecorp.com/linecorp/career/list';
 
-crawler(seed, /Front end/i)
-.then((result) => {
-    console.log(result);
-});
+crawler(seed, /Front End/i)
+.then(({ crawled, report }) => {
+    const visitedURLs = [...crawled.keys()].map((url) => url);
+    const searchedURLs = [...report.keys()].map((url) => url);
+    return {
+        visitedURLCount: visitedURLs.length,
+        searchedURLCount: searchedURLs.length,
+        searchedURLs
+    };
+})
+.then((result) => console.log(result));
