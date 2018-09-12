@@ -32,3 +32,8 @@ crawler('https://career.linecorp.com/linecorp/career/list/', 'Front End')
     : Since JavaScript is a first class citizen can be passed a function as a parameter and return a function, using it it can be encapsulated private variables and connect by closure
    - Promise
     : JavaScript only has single thread and it basically works asynchronously, but in some cases, for example: http request, we need to work synchronously so that time we can use Promise to time scheduling.
+
+
+# In addition
+This `crawler.js` library is also published on npm as `domain-crawler`
+: https://www.npmjs.com/package/domain-crawler

@@ -34,3 +34,7 @@ crawler('https://career.linecorp.com/linecorp/career/list/', 'Front End')
 : 자바스크립트는 퍼스트 클래스 시티즌 이기 때문에 함수를 파라미터로 넘길수 있고 리턴할 수도 있습니다. 또한 어휘적 스코프(lexical scope)를 사용해서 private variable들을 만들수도 있습니다. 
 - Promise
 : 자바스크립트는 하나의 스레드만 사용하기 때문에 asynchronously 코딩합니다. 하지만 서버으 리스판스를 기다릴때 등은 synchronously하게 코딩해야하고 타임 스케줄링등을 해야 하는데요. 이 앱에서는 crawling 끝나는 시점을 확인하기 위해 Promise를 사용하였습니다.
+
+# 추가사항
+이 crawler.js는 이번에 이 데모를 작성하면서 npm에도 publish 하였습니다.
+: https://www.npmjs.com/package/domain-crawler
