@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import { URL } from 'url';
 import colors from 'colors';
 
+// Process
 // 1. start crawler
 // 2. check has visited
 // 3. note started crawling an url
@@ -12,6 +13,12 @@ import colors from 'colors';
 // 7. note finished crawling an url
 // 8. verify all visited
 
+/**
+ * 
+ * @param {string} seed : which domain you want to crawl
+ * @param {string|RegExp} keyword : what keyword you want to search in the domain
+ * @return {{ crawled: Map, report: Map }}: crawled: how many URLs visited, report: how many URLs contains a keyword
+ */
 function crawler (seed, keyword) {
     return new Promise((resolve) => {
         const crawled = new Map();
@@ -63,7 +70,12 @@ function crawler (seed, keyword) {
     });
 }
 
-// validate http and https protocol, and same origin
+/**
+ * @param {string} url: url to validate
+ * @param {string} seed: origin domain 
+ * @return {string|boolean} if false, an invalid URL, otherwise return an url with origin
+ * validate url is same origin with seed, and whether protocol is http or https
+ */
 function validationUrl(url, seed) {
     const { href, origin, protocol } = new URL(url, seed);
     if ((protocol === 'http:' || protocol === 'https:') && new URL(seed).origin === origin) {
@@ -73,11 +85,20 @@ function validationUrl(url, seed) {
     }
 }
 
-// validate whether there is any false in a Map, or not.
+/**
+ * @param {Map} map: crawled Map object
+ * @return {boolean}:  if no value is false, it returns true
+ * validate there has any false value in a Map to verify crawled done
+ */
 function isVisitedAll(map) {
     return [...map.values()].filter(i => i === false).length < 1;
 }
 
+/**
+ * @param {string|RegExp} str: string or RegExp to convert as RegExp
+ * @return {RegExp}: return RegExp
+ * in search keyword, using RegExp so string which input in function to convert as RegExp
+ */
 // convert str to RegExp, if RegExp, return it
 function convertRegexp(str) {
     return (str instanceof RegExp) ? str : new RegExp(str);
